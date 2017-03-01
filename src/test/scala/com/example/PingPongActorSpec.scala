@@ -25,11 +25,6 @@ class PingPongActorSpec(_system: ActorSystem) extends TestKit(_system) with Impl
     s"""
        | bootstrap.servers = "localhost:${kafkaServer.kafkaPort}",
        | group.id = "$randomString"
-       | enable.auto.commit = false
-       | auto.offset.reset = "earliest"
-       | schedule.interval = 1 second
-       | unconfirmed.timeout = 3 seconds
-       | max.redeliveries = 3
         """.stripMargin
   )
 
@@ -42,16 +37,18 @@ class PingPongActorSpec(_system: ActorSystem) extends TestKit(_system) with Impl
 
     val pongActor = system.actorOf(PongActor.props(config), "PongTest")
 
-  val pingActor = system.actorOf(PingActor.props(config, testActor), "PingTest")
+  val pingActor = system.actorOf(PingActor.props(config), "PingTest")
 
   def kafkaProducer(kafkaHost: String, kafkaPort: Int): KafkaProducer[String, PingPongMessage] =
     KafkaProducer(KafkaProducer.Conf(new StringSerializer(), new JsonSerializer[PingPongMessage], bootstrapServers = kafkaHost + ":" + kafkaPort))
 
   "A Ping actor" must {
-    "send back a ping on a pong" in {
+    "send back a GameOver message after 3 messages" in {
       Thread.sleep(5000)
+      val tester = TestProbe()
+      tester.watch(pingActor)
       pongActor ! PongActor.Start
-      expectMsg( 20 seconds, PingActor.GameOver)
+      tester.expectTerminated(pingActor, 20 seconds)
     }
   }
 

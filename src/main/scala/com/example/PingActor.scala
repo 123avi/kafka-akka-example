@@ -1,10 +1,10 @@
 package com.example
 
-import akka.actor.{Actor, ActorLogging, ActorRef, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, PoisonPill, Props}
 import cakesolutions.kafka.akka.KafkaConsumerActor.{Confirm, Unsubscribe}
 import com.typesafe.config.Config
 
-class PingActor(val config: Config, pipeTo: ActorRef) extends Actor
+class PingActor(val config: Config) extends Actor
   with ActorLogging with PingPongConsumer with PingPongProducer{
   import PingActor._
   import PingPongProtocol._
@@ -32,10 +32,11 @@ class PingActor(val config: Config, pipeTo: ActorRef) extends Actor
           log.error(s"Received unkeyed submit sample command: $submitSampleCommand")
 
         case (Some(id), pongMessage) =>
-          submitMsg(PongActor.topics, PingPongMessage("pong"))
           counter += 1
-          if (counter == 3) {
-            pipeTo ! GameOver
+          if (counter > 3) {
+            self ! PoisonPill
+          } else {
+            submitMsg(PongActor.topics, PingPongMessage("pong"))
           }
 
           // By committing *after* processing we get at-least-once-processing, but that's OK here because we can identify duplicates by their timestamps
@@ -45,12 +46,11 @@ class PingActor(val config: Config, pipeTo: ActorRef) extends Actor
 
     case unknown =>
       log.error(s"got Unknown message: $unknown")
-      pipeTo ! "unknown"
   }
 }
 
 object PingActor {
-  def props(config: Config, pipeTo: ActorRef) = Props( new PingActor(config, pipeTo))
+  def props(config: Config) = Props( new PingActor(config))
   val topics = List("ping")
   case object GameOver
 }

@@ -16,7 +16,7 @@ object ApplicationMain extends App {
 
   val config: Config = ConfigFactory.parseString(
     s"""
-       | bootstrap.servers = "localhost:${kafkaServer.kafkaPort}",
+       | bootstrap.servers = "localhost:9092",
        | group.id = "$randomString"
        | enable.auto.commit = false
        | auto.offset.reset = "earliest"
@@ -27,8 +27,10 @@ object ApplicationMain extends App {
   )
 
   val pongActor = system.actorOf(PongActor.props(config), "pingActor")
+  val pingActor = system.actorOf(PingActor.props(config), "PingTest")
+
   pongActor ! PongActor.Start
-//   This example app will ping pong 3 times and thereafter terminate the ActorSystem -
-//   see counter logic in PingActor
-  Await.ready(system.whenTerminated, 10 seconds)
+  //   This example app will ping pong 3 times and thereafter terminate the ActorSystem -
+  //   see counter logic in PingActor
+//  Await.ready(system.whenTerminated, 10 seconds)
 }
