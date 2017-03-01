@@ -1,0 +1,228 @@
+New log file opened at Mon Feb 27 19:17:32 EET 2017 by 17925@Avis-MacBook-Pro-2.local
+jvm 17925@Avis-MacBook-Pro-2.local
+jvm vmName=Java HotSpot(TM) 64-Bit Server VM vmVendor=Oracle Corporation vmVersion=25.112-b16
+jvm specName=Java Virtual Machine Specification specVendor=Oracle Corporation specVersion=1.8
+jvm arguments: [-Xms256m, -Xmx1024m, -XX:MetaspaceSize=64m, -XX:MaxMetaspaceSize=256m]
+Starting event engine
+Starting sbt command engine
+Waiting for sbt command engine
+Command engine arguments=List()
+Command engine baseDirectory=/Users/avilevi/Projects/kafka-test-cakesolutions
+Command engine initial remaining commands List(--initialize, onFailure load-failed, boot, server-send-ready-for-request, server-handle-next-server-request)
+> --initialize
+> initialize
+> onFailure load-failed
+> boot
+> reload
+[Loading] Scanning directory /Users/avilevi/.sbt/0.13/plugins
+[Loading] Found non-root projects 
+[Loading] Done in /Users/avilevi/.sbt/0.13/plugins, returning: ()
+deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(List(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))))
+  :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.JUnitXmlReportPlugin)
+sorting: ns: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(sbt.plugins.CorePlugin) not found List(sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin) not found List(sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin) not found List(sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin) not found List()
+  :: sorted deduced result: List(sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+[Loading] Done in /Users/avilevi/.sbt/0.13/plugins, returning: (global-plugins)
+Loading global plugins from /Users/avilevi/.sbt/0.13/plugins
+Running task... Cancel: sbt.TaskCancellationStrategy$Null$@1594bca5, check cycles: false
+
+Initial source changes: 
+	removed:Set()
+	added: Set()
+	modified: Set()
+Removed products: Set()
+External API changes: API Changes: Set()
+Modified binary dependencies: Set()
+Initial directly invalidated sources: Set()
+
+Sources indirectly invalidated by:
+	product: Set()
+	binary dep: Set()
+	external source: Set()
+All initially invalidated sources: Set()
+
+Copy resource mappings: 
+	
+Other repositories:
+Default repositories:
+Using inline dependencies specified in Scala.
+[Loading] Scanning directory /Users/avilevi/Projects/kafka-test-cakesolutions/project
+[Loading] Found non-root projects 
+[Loading] Done in /Users/avilevi/Projects/kafka-test-cakesolutions/project, returning: ()
+deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin), Atom(net.virtualvoid.sbt.graph.DependencyGraphPlugin), Atom(com.updateimpact.Plugin)) and clauses Clauses(List(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))))
+  :: deduced result: Matched(com.updateimpact.Plugin,net.virtualvoid.sbt.graph.DependencyGraphPlugin,sbt.plugins.CorePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.JUnitXmlReportPlugin)
+sorting: ns: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin) not found List(sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin) not found List(sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin) not found List(sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin) not found List()
+  :: sorted deduced result: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+[Loading] Done in /Users/avilevi/Projects/kafka-test-cakesolutions/project, returning: (kafka-test-cakesolutions-build)
+Loading project definition from /Users/avilevi/Projects/kafka-test-cakesolutions/project
+Running task... Cancel: sbt.TaskCancellationStrategy$Null$@1594bca5, check cycles: false
+
+Initial source changes: 
+	removed:Set()
+	added: Set()
+	modified: Set()
+Removed products: Set()
+External API changes: API Changes: Set()
+Modified binary dependencies: Set()
+Initial directly invalidated sources: Set()
+
+Sources indirectly invalidated by:
+	product: Set()
+	binary dep: Set()
+	external source: Set()
+All initially invalidated sources: Set()
+
+Copy resource mappings: 
+	
+[Loading] Scanning directory /Users/avilevi/Projects/kafka-test-cakesolutions
+[Loading] Found non-root projects 
+[Loading] Done in /Users/avilevi/Projects/kafka-test-cakesolutions, returning: ()
+deducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin), Atom(net.virtualvoid.sbt.graph.DependencyGraphPlugin), Atom(com.updateimpact.Plugin)) and clauses Clauses(List(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.JUnitXmlReportPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.IvyPlugin))), Clause(Atom(sbt.plugins.IvyPlugin),Set(Atom(sbt.plugins.JvmPlugin))), Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.JUnitXmlReportPlugin)))))
+  :: deduced result: Matched(com.updateimpact.Plugin,net.virtualvoid.sbt.graph.DependencyGraphPlugin,sbt.plugins.CorePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.JUnitXmlReportPlugin)
+sorting: ns: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin) not found List(sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin) not found List(sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin) not found List(sbt.plugins.JUnitXmlReportPlugin)
+  :: sorting:: found: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin) not found List()
+  :: sorted deduced result: List(com.updateimpact.Plugin, net.virtualvoid.sbt.graph.DependencyGraphPlugin, sbt.plugins.CorePlugin, sbt.plugins.IvyPlugin, sbt.plugins.JvmPlugin, sbt.plugins.JUnitXmlReportPlugin)
+[Loading] Done in /Users/avilevi/Projects/kafka-test-cakesolutions, returning: (kafka-test-cakesolutions)
+Set current project to kafka-test-cakesolutions (in build file:/Users/avilevi/Projects/kafka-test-cakesolutions/)
+Reapplying settings...
+Set current project to kafka-test-cakesolutions (in build file:/Users/avilevi/Projects/kafka-test-cakesolutions/)
+> iflast shell
+> server-send-ready-for-request
+> server-handle-next-server-request
+> {file:/Users/avilevi/Projects/kafka-test-cakesolutions/}kafka-test-cakesolutions/compile:mainClass
+Evaluating tasks: compile:mainClass
+Running task... Cancel: sbt.server.ServerTaskCancellation@233a33f6, check cycles: false
+
+Initial source changes: 
+	removed:Set()
+	added: Set(/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/ApplicationMain.scala, /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PingActor.scala, /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PongActor.scala)
+	modified: Set()
+Removed products: Set()
+External API changes: API Changes: Set()
+Modified binary dependencies: Set()
+Initial directly invalidated sources: Set(/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/ApplicationMain.scala, /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PingActor.scala, /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PongActor.scala)
+
+Sources indirectly invalidated by:
+	product: Set()
+	binary dep: Set()
+	external source: Set()
+All initially invalidated sources: Set(/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/ApplicationMain.scala, /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PingActor.scala, /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PongActor.scala)
+
+Recompiling all 3 sources: invalidated sources (3) exceeded 50.0% of all sources
+Read from stdout: Compiling 3 Scala sources to /Users/avilevi/Projects/kafka-test-cakesolutions/target/scala-2.11/classes...
+Compiling 3 Scala sources to /Users/avilevi/Projects/kafka-test-cakesolutions/target/scala-2.11/classes...
+Getting compiler-interface from component compiler for Scala 2.11.6
+Other repositories:
+Default repositories:
+Other repositories:
+Default repositories:
+Getting compiler-interface from component compiler for Scala 2.11.6
+Other repositories:
+Default repositories:
+Running cached compiler 24fb8695, interfacing (CompilerInterface) with Scala compiler version 2.11.6
+Calling Scala compiler with arguments  (CompilerInterface):
+	-bootclasspath
+	/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/classes:/Users/avilevi/activator-dist-1.3.12/repository/org.scala-lang/scala-library/2.11.6/jars/scala-library.jar
+	-classpath
+	/Users/avilevi/Projects/kafka-test-cakesolutions/target/scala-2.11/classes:/Users/avilevi/.ivy2/cache/net.cakesolutions/scala-kafka-client_2.11/jars/scala-kafka-client_2.11-0.10.1.2.jar:/Users/avilevi/activator-dist-1.3.12/repository/com.typesafe/config/1.3.0/bundles/config.jar:/Users/avilevi/.ivy2/cache/org.apache.kafka/kafka-clients/jars/kafka-clients-0.10.1.1.jar:/Users/avilevi/.ivy2/cache/net.jpountz.lz4/lz4/jars/lz4-1.3.0.jar:/Users/avilevi/.ivy2/cache/org.xerial.snappy/snappy-java/bundles/snappy-java-1.1.2.6.jar:/Users/avilevi/activator-dist-1.3.12/repository/org.slf4j/slf4j-api/1.7.21/jars/slf4j-api.jar:/Users/avilevi/.ivy2/cache/net.cakesolutions/scala-kafka-client-akka_2.11/jars/scala-kafka-client-akka_2.11-0.10.1.2.jar:/Users/avilevi/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/jars/akka-actor_2.11-2.4.16.jar:/Users/avilevi/activator-dist-1.3.12/repository/org.scala-lang.modules/scala-java8-compat_2.11/0.7.0/bundles/scala-java8-compat_2.11.jar:/Users/avilevi/activator-dist-1.3.12/repository/org.scala-lang/scala-reflect/2.11.7/jars/scala-reflect.jar
+Read from stdout: there was one deprecation warning; re-run with -deprecation for details
+there was one deprecation warning; re-run with -deprecation for details
+Read from stdout: one warning found
+one warning found
+Scala compilation took 5.539577947 s
+Invalidating /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/ApplicationMain.scala...
+Invalidating (transitively) by inheritance from /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/ApplicationMain.scala...
+Initial set of included nodes: Set(/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/ApplicationMain.scala)
+Invalidated by transitive inheritance dependency: Set(/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/ApplicationMain.scala)
+The /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/ApplicationMain.scala source file has the following regular definitions changed:
+	notify, wait, $asInstanceOf, system, equals, asInstanceOf, executionStart, synchronized, $isInstanceOf, main, notifyAll, isInstanceOf, ==, ApplicationMain, clone, toString, args, !=, getClass, ne, pingActor, eq, delayedInit, ##, finalize, hashCode.
+All member reference dependencies will be considered within this context.
+Invalidating /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PingActor.scala...
+Invalidating (transitively) by inheritance from /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PingActor.scala...
+Initial set of included nodes: Set(/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PingActor.scala)
+Invalidated by transitive inheritance dependency: Set(/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PingActor.scala)
+The /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PingActor.scala source file has the following implicit definitions changed:
+	self, context.
+All member reference dependencies will be considered within this context.
+The following member ref dependencies of /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PingActor.scala are invalidated:
+	/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/ApplicationMain.scala
+	/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PongActor.scala
+Invalidating /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PongActor.scala...
+Invalidating (transitively) by inheritance from /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PongActor.scala...
+Initial set of included nodes: Set(/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PongActor.scala)
+Invalidated by transitive inheritance dependency: Set(/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PongActor.scala)
+The /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PongActor.scala source file has the following implicit definitions changed:
+	self, context.
+All member reference dependencies will be considered within this context.
+The following member ref dependencies of /Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PongActor.scala are invalidated:
+	/Users/avilevi/Projects/kafka-test-cakesolutions/src/main/scala/com/example/PingActor.scala
+New invalidations:
+	Set()
+Initial set of included nodes: Set()
+Previously invalidated, but (transitively) depend on new invalidations:
+	Set()
+All newly invalidated sources after taking into account (previously) recompiled sources:Set()
+Total time: 6 s, completed Feb 27, 2017 7:17:46 PM
+> server-post-command-cleanup
+> server-handle-next-server-request
+> {file:/Users/avilevi/Projects/kafka-test-cakesolutions/}kafka-test-cakesolutions/compile:discoveredMainClasses
+Evaluating tasks: compile:discoveredMainClasses
+Running task... Cancel: sbt.server.ServerTaskCancellation@195883c4, check cycles: false
+
+Initial source changes: 
+	removed:Set()
+	added: Set()
+	modified: Set()
+Removed products: Set()
+External API changes: API Changes: Set()
+Modified binary dependencies: Set()
+Initial directly invalidated sources: Set()
+
+Sources indirectly invalidated by:
+	product: Set()
+	binary dep: Set()
+	external source: Set()
+All initially invalidated sources: Set()
+
+Total time: 0 s, completed Feb 27, 2017 7:17:46 PM
+> server-post-command-cleanup
+> server-handle-next-server-request
+> {file:/Users/avilevi/Projects/kafka-test-cakesolutions/}kafka-test-cakesolutions/compile:mainClass
+Evaluating tasks: compile:mainClass
+Running task... Cancel: sbt.server.ServerTaskCancellation@3fd334e7, check cycles: false
+
+Initial source changes: 
+	removed:Set()
+	added: Set()
+	modified: Set()
+Removed products: Set()
+External API changes: API Changes: Set()
+Modified binary dependencies: Set()
+Initial directly invalidated sources: Set()
+
+Sources indirectly invalidated by:
+	product: Set()
+	binary dep: Set()
+	external source: Set()
+All initially invalidated sources: Set()
+
+Total time: 0 s, completed Feb 27, 2017 7:17:47 PM
+> server-post-command-cleanup
+> server-handle-next-server-request
+Done executing sbt server engine, result Right(Exit(0))
+Closing listening server socket
+Waiting for socket thread
+Waiting for request processor thread
+Waiting for command engine result
+Returning control to sbt launcher with result Exit(0)
+Closing the 17925@Avis-MacBook-Pro-2.local logs at Mon Feb 27 19:17:47 EET 2017, goodbye.
