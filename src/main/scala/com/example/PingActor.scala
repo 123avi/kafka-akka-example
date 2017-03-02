@@ -34,6 +34,7 @@ class PingActor(val config: Config) extends Actor
         case (Some(id), pongMessage) =>
           counter += 1
           if (counter > 3) {
+            log.info(s"========> Sending poison pill to ${self.path.name}")
             self ! PoisonPill
           } else {
             submitMsg(PongActor.topics, PingPongMessage("pong"))
