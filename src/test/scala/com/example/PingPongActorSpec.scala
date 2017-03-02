@@ -30,9 +30,9 @@ class PingPongActorSpec(_system: ActorSystem) extends TestKit(_system) with Impl
 
   override def beforeAll() = kafkaServer.startup()
 
-  override def afterAll {
+  override def afterAll() = {
     kafkaServer.close()
-//    TestKit.shutdownActorSystem(system)
+    TestKit.shutdownActorSystem(system)
   }
 
     val pongActor = system.actorOf(PongActor.props(config), "PongTest")
