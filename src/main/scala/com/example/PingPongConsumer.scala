@@ -10,7 +10,6 @@ import com.typesafe.config.Config
 import org.apache.kafka.common.serialization.{StringDeserializer, StringSerializer}
 
 import scala.util.Random
-
 trait KafkaConfig{
   def config:Config
   def randomString(len: Int= 5): String = Random.alphanumeric.take(len).mkString("")
@@ -18,6 +17,7 @@ trait KafkaConfig{
 
 trait PingPongConsumer extends KafkaConfig{
   this: Actor =>
+
 
   val pongExtractor = ConsumerRecords.extractor[java.lang.String, PingPongMessage]
 
@@ -33,7 +33,7 @@ trait PingPongConsumer extends KafkaConfig{
   )
 
   def subscribe(topics: List[String]) =
-    kafkaConsumerActor ! Subscribe.AutoPartition(topics)
+     kafkaConsumerActor ! Subscribe.AutoPartition(topics)
 
 }
 
@@ -48,6 +48,8 @@ trait PingPongProducer  extends KafkaConfig{
 
   val kafkaProducerActor = context.actorOf(KafkaProducerActor.props( kafkaProducerConf))
 
-  def submitMsg(topics: List[String], msg: PingPongMessage) =
-      topics.foreach(topic => kafkaProducerActor ! ProducerRecords(List(KafkaProducerRecord(topic, randomString(3) ,msg))))
+  def submitMsg(topics: List[String], msg: PingPongMessage) = {
+    println(s"Placing message on $topics, $msg")
+    topics.foreach(topic => kafkaProducerActor ! ProducerRecords(List(KafkaProducerRecord(topic, randomString(3), msg))))
+  }
 }

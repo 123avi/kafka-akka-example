@@ -37,6 +37,8 @@ class PingActor(val config: Config) extends Actor
             log.info(s"========> Sending poison pill to ${self.path.name}")
             self ! PoisonPill
           } else {
+            log.debug("PONG")
+            println("PONG")
             submitMsg(PongActor.topics, PingPongMessage("pong"))
           }
 

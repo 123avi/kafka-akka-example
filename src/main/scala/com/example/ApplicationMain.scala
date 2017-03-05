@@ -2,15 +2,11 @@ package com.example
 
 import akka.actor.ActorSystem
 import com.typesafe.config.{Config, ConfigFactory}
-import cakesolutions.kafka.testkit.KafkaServer
 
-import scala.concurrent.Await
-import scala.concurrent.duration._
 import scala.util.Random
 
 object ApplicationMain extends App {
   val system = ActorSystem("MyActorSystem")
-  private val kafkaServer = new KafkaServer()
   private def randomString: String = Random.alphanumeric.take(5).mkString("")
 
 
@@ -25,10 +21,20 @@ object ApplicationMain extends App {
        | max.redeliveries = 3
         """.stripMargin
   )
+//
+//  val config: Config = ConfigFactory.parseString(
+//    s"""
+//       | bootstrap.servers = "localhost:2181",
+//       | group.id = "$randomString"
+//       | auto.offset.reset = "earliest"
+//        """.stripMargin
+//  )
+
+
 
   val pongActor = system.actorOf(PongActor.props(config), "pingActor")
   val pingActor = system.actorOf(PingActor.props(config), "PingTest")
-
+Thread.sleep(5000)
   pongActor ! PongActor.Start
   //   This example app will ping pong 3 times and thereafter terminate the ActorSystem -
   //   see counter logic in PingActor
