@@ -2,11 +2,8 @@ package com.example
 
 import java.util
 
-import cakesolutions.kafka.akka.ConsumerRecords
 import org.apache.kafka.common.serialization.{Deserializer, Serializer, StringDeserializer, StringSerializer}
-import play.api.libs.functional.syntax.unlift
-import play.api.libs.json.{Format, JsPath, Json, Reads, Writes}
-import play.api.libs.json.Reads._
+import play.api.libs.json.{Format, Json, Reads, Writes}
 
 object PingPongProtocol{
   case class PingPongMessage(text: String)

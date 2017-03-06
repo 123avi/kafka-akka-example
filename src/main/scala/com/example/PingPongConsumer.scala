@@ -1,10 +1,9 @@
 package com.example
 
 import akka.actor.Actor
-import cakesolutions.kafka.KafkaConsumer.Conf
 import cakesolutions.kafka.akka.KafkaConsumerActor.Subscribe
 import cakesolutions.kafka.akka.{ConsumerRecords, KafkaConsumerActor, KafkaProducerActor, ProducerRecords}
-import cakesolutions.kafka.{KafkaConsumer, KafkaProducer, KafkaProducerRecord}
+import cakesolutions.kafka.{KafkaProducer, KafkaProducerRecord}
 import com.example.PingPongProtocol.PingPongMessage
 import com.typesafe.config.Config
 import org.apache.kafka.common.serialization.{StringDeserializer, StringSerializer}
@@ -18,14 +17,8 @@ trait KafkaConfig{
 trait PingPongConsumer extends KafkaConfig{
   this: Actor =>
 
-
-  val pongExtractor = ConsumerRecords.extractor[java.lang.String, PingPongMessage]
-
-  val kafkaConfig: Conf[String, PingPongMessage] = KafkaConsumer.Conf(
-    config,
-    keyDeserializer = new StringDeserializer(),
-    valueDeserializer = new JsonDeserializer[PingPongMessage]
-  )
+  //for pattern matching in our receive method
+  val msgExtractor = ConsumerRecords.extractor[java.lang.String, PingPongMessage]
 
   val kafkaConsumerActor = context.actorOf(
     KafkaConsumerActor.props(config,new StringDeserializer(), new JsonDeserializer[PingPongMessage], self),
@@ -49,7 +42,6 @@ trait PingPongProducer  extends KafkaConfig{
   val kafkaProducerActor = context.actorOf(KafkaProducerActor.props( kafkaProducerConf))
 
   def submitMsg(topics: List[String], msg: PingPongMessage) = {
-    println(s"Placing message on $topics, $msg")
     topics.foreach(topic => kafkaProducerActor ! ProducerRecords(List(KafkaProducerRecord(topic, randomString(3), msg))))
   }
 }

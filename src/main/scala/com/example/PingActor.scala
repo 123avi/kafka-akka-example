@@ -1,13 +1,14 @@
 package com.example
 
-import akka.actor.{Actor, ActorLogging, ActorRef, PoisonPill, Props}
-import cakesolutions.kafka.akka.KafkaConsumerActor.{Confirm, Unsubscribe}
+import akka.actor.{Actor, ActorLogging, PoisonPill, Props}
+import cakesolutions.kafka.akka.KafkaConsumerActor.Confirm
 import com.typesafe.config.Config
 
 class PingActor(val config: Config) extends Actor
   with ActorLogging with PingPongConsumer with PingPongProducer{
   import PingActor._
   import PingPongProtocol._
+
 
   var counter = 0
 
@@ -16,33 +17,25 @@ class PingActor(val config: Config) extends Actor
     subscribe(topics)
   }
 
-  override def postStop() = {
-    kafkaConsumerActor ! Unsubscribe
-    super.postStop()
-  }
-
   def receive = playingPingPong
 
   def playingPingPong: Receive = {
 
-    case pongExtractor(consumerRecords) =>
+    case msgExtractor(consumerRecords) =>
 
       consumerRecords.pairs.foreach {
-        case (None, submitSampleCommand) =>
-          log.error(s"Received unkeyed submit sample command: $submitSampleCommand")
+        case (None, pongMessage) =>
+          log.error(s"Received unkeyed message: $pongMessage")
 
         case (Some(id), pongMessage) =>
           counter += 1
           if (counter > 3) {
-            log.info(s"========> Sending poison pill to ${self.path.name}")
+            log.info(s"${self.path.name} is ending the game")
+            submitMsg(PongActor.topics, PingPongMessage("GameOver"))
             self ! PoisonPill
           } else {
-            log.debug("PONG")
-            println("PONG")
             submitMsg(PongActor.topics, PingPongMessage("pong"))
           }
-
-          // By committing *after* processing we get at-least-once-processing, but that's OK here because we can identify duplicates by their timestamps
           kafkaConsumerActor ! Confirm(consumerRecords.offsets)
           log.info(s"In PingActor - id:$id, msg: $pongMessage, offsets ${consumerRecords.offsets}")
       }
@@ -55,5 +48,4 @@ class PingActor(val config: Config) extends Actor
 object PingActor {
   def props(config: Config) = Props( new PingActor(config))
   val topics = List("ping")
-  case object GameOver
 }

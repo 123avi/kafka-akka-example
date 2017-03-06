@@ -31,8 +31,8 @@ class PingPongActorSpec(_system: ActorSystem) extends TestKit(_system) with Impl
   override def beforeAll() = kafkaServer.startup()
 
   override def afterAll() = {
-    kafkaServer.close()
     TestKit.shutdownActorSystem(system)
+    kafkaServer.close()
   }
 
     val pongActor = system.actorOf(PongActor.props(config), "PongTest")
@@ -43,7 +43,7 @@ class PingPongActorSpec(_system: ActorSystem) extends TestKit(_system) with Impl
     KafkaProducer(KafkaProducer.Conf(new StringSerializer(), new JsonSerializer[PingPongMessage], bootstrapServers = kafkaHost + ":" + kafkaPort))
 
   "A Ping actor" must {
-    "send back a GameOver message after 3 messages" in {
+    "terminate after 3 messages" in {
       Thread.sleep(5000)
       val tester = TestProbe()
       tester.watch(pingActor)

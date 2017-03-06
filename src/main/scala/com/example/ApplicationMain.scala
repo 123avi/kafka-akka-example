@@ -15,7 +15,7 @@ object ApplicationMain extends App {
        | bootstrap.servers = "localhost:9092",
        | group.id = "$randomString"
        | enable.auto.commit = false
-       | auto.offset.reset = "earliest"
+       | auto.offset.reset = "latest"
        | schedule.interval = 1 second
        | unconfirmed.timeout = 3 seconds
        | max.redeliveries = 3
@@ -32,8 +32,8 @@ object ApplicationMain extends App {
 
 
 
-  val pongActor = system.actorOf(PongActor.props(config), "pingActor")
-  val pingActor = system.actorOf(PingActor.props(config), "PingTest")
+  val pongActor = system.actorOf(PongActor.props(config), "pongActor")
+  val pingActor = system.actorOf(PingActor.props(config), "PingActor")
 Thread.sleep(5000)
   pongActor ! PongActor.Start
   //   This example app will ping pong 3 times and thereafter terminate the ActorSystem -

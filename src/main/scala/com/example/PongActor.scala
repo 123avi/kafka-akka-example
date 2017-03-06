@@ -1,18 +1,13 @@
 package com.example
 
-import akka.actor.{Actor, ActorLogging, Props}
-import cakesolutions.kafka.akka.KafkaConsumerActor.{Confirm, Unsubscribe}
+import akka.actor.{Actor, ActorLogging, PoisonPill, Props}
+import cakesolutions.kafka.akka.KafkaConsumerActor.Confirm
 import com.typesafe.config.Config
 
 class PongActor(val config: Config) extends Actor
   with ActorLogging  with PingPongConsumer with PingPongProducer{
   import PingPongProtocol._
   import PongActor._
-
-  override def postStop() = {
-    kafkaConsumerActor ! Unsubscribe
-    super.postStop()
-  }
 
   override def preStart(): Unit = {
     super.preStart()
@@ -28,16 +23,17 @@ class PongActor(val config: Config) extends Actor
   }
 
   def playingPingPong: Receive ={
-    case pongExtractor(consumerRecords) =>
+    case msgExtractor(consumerRecords) =>
       consumerRecords.pairs.foreach {
+        case (_, PingPongMessage("GameOver")) =>
+          kafkaConsumerActor ! Confirm(consumerRecords.offsets)
+          log.info(s"Bye Bye ${self.path.name}")
+          self ! PoisonPill
         case (None, msg) =>
           log.error(s"Received unkeyed submit sample command: $msg")
-        case (Some(id), pongMessage) =>
-          log.debug("PING")
-          println("PING")
 
+        case (Some(id), pongMessage) =>
           submitMsg(PingActor.topics, PingPongMessage("ping"))
-          // By committing *after* processing we get at-least-once-processing, but that's OK here because we can identify duplicates by their timestamps
           kafkaConsumerActor ! Confirm(consumerRecords.offsets)
           log.info(s"In PongActor - id:$id, msg: $pongMessage, offsets ${consumerRecords.offsets}")
       }
