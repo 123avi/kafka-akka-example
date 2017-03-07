@@ -86,9 +86,25 @@ class PingPongActorSpec(_system: ActorSystem) extends TestKit(_system) with Impl
       pongActor ! Start
       val tester = TestProbe()
       tester.watch(pongActor)
-      tester.expectTerminated(pongActor, 20 seconds)
+      tester.expectTerminated(pongActor, 10 seconds)
       submitMsg(3, PongActor.topics.head, PingPongMessage("PONG"))
       submitMsg(1, PongActor.topics.head, PingPongMessage("GameOver"))
     }
   }
+
+
+  "A Ping Pong Game actor" must {
+    "terminate after 3 ping messages" in {
+      val pongActor = system.actorOf(PongActor.props(config), "PongTest")
+      val pingActor = system.actorOf(PingActor.props(config), "PingTest")
+      val tester = TestProbe()
+      tester.watch(pingActor)
+      tester.watch(pongActor)
+      pongActor ! PongActor.Start
+      tester.expectTerminated(pongActor, 10 seconds)
+      tester.expectTerminated(pingActor, 10 seconds)
+
+    }
+  }
+
 }
