@@ -60,6 +60,20 @@ class PingPongActorSpec(_system: ActorSystem) extends TestKit(_system) with Impl
   def kafkaProducer(kafkaHost: String, kafkaPort: Int): KafkaProducer[String, PingPongMessage] =
     KafkaProducer(KafkaProducer.Conf(new StringSerializer(), new JsonSerializer[PingPongMessage], bootstrapServers = kafkaHost + ":" + kafkaPort))
 
+  "A Ping Pong Game " must {
+    "terminate after 3 ping messages" in {
+      val pongActor = system.actorOf(PongActor.props(config), "PongTest")
+      val pingActor = system.actorOf(PingActor.props(config), "PingTest")
+      val tester = TestProbe()
+      tester.watch(pingActor)
+      tester.watch(pongActor)
+      pongActor ! PongActor.Start
+      tester.expectTerminated(pongActor, 10 seconds)
+      tester.expectTerminated(pingActor, 10 seconds)
+
+    }
+  }
+
   "A Ping actor" must {
     "terminate after 3 messages" in {
       val pingActor = system.actorOf(PingActor.props(config), "PingTest")
@@ -91,20 +105,4 @@ class PingPongActorSpec(_system: ActorSystem) extends TestKit(_system) with Impl
       submitMsg(1, PongActor.topics.head, PingPongMessage("GameOver"))
     }
   }
-
-
-  "A Ping Pong Game actor" must {
-    "terminate after 3 ping messages" in {
-      val pongActor = system.actorOf(PongActor.props(config), "PongTest")
-      val pingActor = system.actorOf(PingActor.props(config), "PingTest")
-      val tester = TestProbe()
-      tester.watch(pingActor)
-      tester.watch(pongActor)
-      pongActor ! PongActor.Start
-      tester.expectTerminated(pongActor, 10 seconds)
-      tester.expectTerminated(pingActor, 10 seconds)
-
-    }
-  }
-
 }
