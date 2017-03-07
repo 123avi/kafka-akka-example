@@ -35,6 +35,7 @@ class PongActor(val config: Config) extends Actor
         case (Some(id), pongMessage) =>
           kafkaConsumerActor ! Confirm(consumerRecords.offsets)
           log.info(s"In PongActor - id:$id, msg: $pongMessage, offsets ${consumerRecords.offsets}")
+          println(pongMessage.text)
           submitMsg(PingActor.topics, PingPongMessage("ping"))
       }
 
