@@ -33,9 +33,9 @@ class PongActor(val config: Config) extends Actor
           log.error(s"Received unkeyed submit sample command: $msg")
 
         case (Some(id), pongMessage) =>
-          submitMsg(PingActor.topics, PingPongMessage("ping"))
           kafkaConsumerActor ! Confirm(consumerRecords.offsets)
           log.info(s"In PongActor - id:$id, msg: $pongMessage, offsets ${consumerRecords.offsets}")
+          submitMsg(PingActor.topics, PingPongMessage("ping"))
       }
 
     case unknown =>

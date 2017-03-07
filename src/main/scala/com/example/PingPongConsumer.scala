@@ -1,6 +1,7 @@
 package com.example
 
 import akka.actor.Actor
+import akka.event.LoggingAdapter
 import cakesolutions.kafka.akka.KafkaConsumerActor.Subscribe
 import cakesolutions.kafka.akka.{ConsumerRecords, KafkaConsumerActor, KafkaProducerActor, ProducerRecords}
 import cakesolutions.kafka.{KafkaProducer, KafkaProducerRecord}
@@ -11,6 +12,7 @@ import org.apache.kafka.common.serialization.{StringDeserializer, StringSerializ
 import scala.util.Random
 trait KafkaConfig{
   def config:Config
+  def log: LoggingAdapter
   def randomString(len: Int= 5): String = Random.alphanumeric.take(len).mkString("")
 }
 
@@ -42,6 +44,7 @@ trait PingPongProducer  extends KafkaConfig{
   val kafkaProducerActor = context.actorOf(KafkaProducerActor.props( kafkaProducerConf))
 
   def submitMsg(topics: List[String], msg: PingPongMessage) = {
+    log.info(s"Placing $msg on ${topics.mkString(",")}")
     topics.foreach(topic => kafkaProducerActor ! ProducerRecords(List(KafkaProducerRecord(topic, randomString(3), msg))))
   }
 }

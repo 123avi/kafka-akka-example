@@ -28,16 +28,19 @@ class PingActor(val config: Config) extends Actor
           log.error(s"Received unkeyed message: $pongMessage")
 
         case (Some(id), pongMessage) =>
+          println(pongMessage.text)
+          kafkaConsumerActor ! Confirm(consumerRecords.offsets)
+          log.info(s"In PingActor - id:$id, msg: $pongMessage, counter:$counter, offsets ${consumerRecords.offsets}")
           counter += 1
-          if (counter > 3) {
+          if (counter >= 3) {
             log.info(s"${self.path.name} is ending the game")
             submitMsg(PongActor.topics, PingPongMessage("GameOver"))
+            // DO NOT do this in production, this is just to make sure that our kafkaConsumerActor is not terminated before placing the game over message
+            Thread.sleep(1000)
             self ! PoisonPill
           } else {
-            submitMsg(PongActor.topics, PingPongMessage("pong"))
+            submitMsg(PongActor.topics, PingPongMessage("PONG"))
           }
-          kafkaConsumerActor ! Confirm(consumerRecords.offsets)
-          log.info(s"In PingActor - id:$id, msg: $pongMessage, offsets ${consumerRecords.offsets}")
       }
 
     case unknown =>

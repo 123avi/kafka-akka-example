@@ -2,10 +2,11 @@ package com.example
 
 import akka.actor.ActorSystem
 import akka.testkit.{ImplicitSender, TestKit, TestProbe}
-import cakesolutions.kafka.KafkaProducer
 import cakesolutions.kafka.testkit.KafkaServer
+import cakesolutions.kafka.{KafkaProducer, KafkaProducerRecord}
+import com.example.PongActor.Start
 import com.typesafe.config.{Config, ConfigFactory}
-import org.apache.kafka.common.serialization.StringSerializer
+import org.apache.kafka.common.serialization.{StringDeserializer, StringSerializer}
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 
 import scala.concurrent.duration._
@@ -17,41 +18,77 @@ class PingPongActorSpec(_system: ActorSystem) extends TestKit(_system) with Impl
 
   def this() = this(ActorSystem("MySpec"))
 
-  private val kafkaServer = new KafkaServer()
-  private def randomString: String = Random.alphanumeric.take(5).mkString("")
+  val kafkaServer = new KafkaServer()
+  def randomString: String = Random.alphanumeric.take(5).mkString("")
 
 
   val config: Config = ConfigFactory.parseString(
     s"""
        | bootstrap.servers = "localhost:${kafkaServer.kafkaPort}",
+       | auto.offset.reset = "earliest",
        | group.id = "$randomString"
         """.stripMargin
   )
 
-  override def beforeAll() = kafkaServer.startup()
+  override def beforeAll() = {
+
+    kafkaServer.startup()
+  }
+
 
   override def afterAll() = {
     TestKit.shutdownActorSystem(system)
+    producer.close()
     kafkaServer.close()
   }
+  val keySerializer =   new StringSerializer()
+  val valueSerializer =  new JsonSerializer[PingPongMessage]
+  val keyDeserializer = new StringDeserializer()
+  val valueDeserializer = new JsonDeserializer[PingPongMessage]
 
-    val pongActor = system.actorOf(PongActor.props(config), "PongTest")
 
-  val pingActor = system.actorOf(PingActor.props(config), "PingTest")
+  val producer =
+    KafkaProducer(KafkaProducer.Conf(keySerializer, valueSerializer, bootstrapServers = s"localhost:${kafkaServer.kafkaPort}"))
+
+  def submitMsg(times: Int, topic: String, msg: PingPongMessage) = {
+    for(i <- 1 to times) {
+      producer.send(KafkaProducerRecord(topic, randomString, msg))
+      producer.flush()
+    }
+  }
 
   def kafkaProducer(kafkaHost: String, kafkaPort: Int): KafkaProducer[String, PingPongMessage] =
     KafkaProducer(KafkaProducer.Conf(new StringSerializer(), new JsonSerializer[PingPongMessage], bootstrapServers = kafkaHost + ":" + kafkaPort))
 
   "A Ping actor" must {
     "terminate after 3 messages" in {
-      Thread.sleep(5000)
+      val pingActor = system.actorOf(PingActor.props(config), "PingTest")
       val tester = TestProbe()
       tester.watch(pingActor)
-      pongActor ! PongActor.Start
-      tester.expectTerminated(pingActor, 20 seconds)
+      submitMsg(3, PingActor.topics.head, PingPongMessage("PING"))
+      tester.expectTerminated(pingActor, 10 seconds)
+    }
+    "should place 2 Pong messages and GameOver on Pong topic message after 3 PingPong messages" in {
+      val pingActor = system.actorOf(PingActor.props(config), "PingTest")
+      submitMsg(3, PingActor.topics.head, PingPongMessage("PING"))
+      val tester = TestProbe()
+      tester.watch(pingActor)
+      tester.expectTerminated(pingActor, 10 seconds)
+      val results: Seq[PingPongMessage] = kafkaServer.consume(PongActor.topics.head, 3, 2000, keyDeserializer, valueDeserializer).map(_._2)
+      results.take(2) should contain theSameElementsAs Seq.fill(2)(PingPongMessage("PONG"))
+      results.last shouldEqual PingPongMessage("GameOver")
     }
   }
 
-
-
+  "A Pong actor" must {
+    "terminate getting GameOver message" in {
+      val pongActor = system.actorOf(PongActor.props(config), "PongTest")
+      pongActor ! Start
+      val tester = TestProbe()
+      tester.watch(pongActor)
+      tester.expectTerminated(pongActor, 20 seconds)
+      submitMsg(3, PongActor.topics.head, PingPongMessage("PONG"))
+      submitMsg(1, PongActor.topics.head, PingPongMessage("GameOver"))
+    }
+  }
 }
