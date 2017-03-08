@@ -1,4 +1,4 @@
-package com.example.cake
+package com.example.smaple
 
 import cakesolutions.kafka.{KafkaProducer, KafkaProducerRecord}
 import com.example.JsonSerializer

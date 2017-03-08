@@ -1,10 +1,10 @@
-package com.example.cake
+package com.example.smaple
 
 import java.util.UUID
 
 import play.api.libs.functional.syntax._
+import play.api.libs.json.JsPath
 import play.api.libs.json.Reads._
-import play.api.libs.json.{JsPath, Json}
 
 /*
 Source : https://github.com/cakesolutions/scala-kafka-client/wiki/Scala-Kafka-Client
