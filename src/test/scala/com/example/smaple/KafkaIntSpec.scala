@@ -1,6 +1,5 @@
-package com.example
+package com.example.smaple
 
-import akka.actor.ActorSystem
 import akka.testkit.TestKit
 import cakesolutions.kafka.testkit.KafkaServer
 import org.scalatest.{BeforeAndAfterAll, FlatSpecLike, Matchers, Suite}

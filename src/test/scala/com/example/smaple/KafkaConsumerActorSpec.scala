@@ -1,10 +1,10 @@
-package com.example
+package com.example.smaple
 
 import akka.actor.{ActorSystem, PoisonPill}
 import akka.testkit.{TestKit, TestProbe}
-import cakesolutions.kafka.akka.{ConsumerRecords, KafkaConsumerActor, Offsets}
 import cakesolutions.kafka.akka.KafkaConsumerActor.Subscribe.AutoPartition
 import cakesolutions.kafka.akka.KafkaConsumerActor.{Confirm, Subscribe, Unsubscribe}
+import cakesolutions.kafka.akka.{ConsumerRecords, KafkaConsumerActor, Offsets}
 import cakesolutions.kafka.{KafkaConsumer, KafkaProducer, KafkaProducerRecord, KafkaTopicPartition}
 import com.typesafe.config.{Config, ConfigFactory}
 import org.apache.kafka.clients.consumer.OffsetResetStrategy

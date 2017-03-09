@@ -1,8 +1,9 @@
-**Akka actors communicating through Apache Kafka using Scala-Kafka-Client**
+**Akka Scala-Kafka-Client example**
 
 The project shows simple example of using akka actors and scala-kafka-client, communicating through Apache Kafka.
 
-Setting up the development environment:
+
+**Setting up the development environment:**
 
 In order to run the application you need to have a running kafka instance on your machine.
 

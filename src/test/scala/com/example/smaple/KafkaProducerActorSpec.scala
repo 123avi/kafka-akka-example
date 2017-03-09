@@ -1,9 +1,9 @@
-package com.example
+package com.example.smaple
 
 import akka.actor.ActorSystem
 import akka.testkit.{TestKit, TestProbe}
-import cakesolutions.kafka.{KafkaConsumer, KafkaProducer, KafkaProducerRecord}
 import cakesolutions.kafka.akka.{KafkaProducerActor, ProducerRecords}
+import cakesolutions.kafka.{KafkaConsumer, KafkaProducer, KafkaProducerRecord}
 import org.apache.kafka.clients.consumer.OffsetResetStrategy
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.{StringDeserializer, StringSerializer}

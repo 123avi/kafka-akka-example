@@ -1,8 +1,7 @@
-package com.example
+package com.example.smaple
 
 import cakesolutions.kafka.KafkaConsumer
 import cakesolutions.kafka.testkit.KafkaServer
-import com.example.smaple.{MeterId, SampleSubmitter, SubmitSampleCommand}
 import com.typesafe.config.{Config, ConfigFactory}
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpec}
