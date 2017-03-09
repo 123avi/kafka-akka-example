@@ -5,30 +5,39 @@
     <title>Akka Scala-Kafka-Client example</title>
 </head>
 <body>
-<div>
+    <div>
     <h2>Akka Scala-Kafka-Client example</h2>
     <p>The project shows simple example of using scala-kafka-client</p>
+        <div><b>For further reading checkout <a href="https://medium.com/@123avi/communicating-with-kafka-using-akka-actors-ce4af02482c6">this step by step guide</a></b> </div>
+    </div>
     <div>
-        <h3>Setting up the development environment:</h3>
-        <div>In order to run the application you need to have a running kafka instance on your machine.</div>
-        <div>Download kafka from <a href="https://kafka.apache.org/downloads">here</a></div>
-        <div>
-            <p>cd ~/<i>your_download_directory</i>
-            <h4>Start zookeeper</h4>
-            <div>bin/zookeeper-server-start.sh config/zookeeper.properties
-                <h4>Start Server</h4>
-                <div>bin/kafka-server-start.sh config/server.properties</div>
+        <h2>Running the tests:</h2>
+        <p>The tests are running using embedded kafka server, so no settings are needed.</p>
+    </div>
+    <div>
+        <h3>Setting up kafka :</h3>
+        <p>In order to run the application you need to have a running kafka instance on your machine.</p>
+        <p> This can be easily done following this steps: </p>
+        <p>Download kafka from <a href="https://kafka.apache.org/downloads">here</a></p>
+        <p>> cd <i>your_download_directory</i>
+    </div>
+    <div>
+        <h3>Start zookeeper:</h3>
+        <p>> bin/zookeeper-server-start.sh config/zookeeper.properties</p>
 
-                <h4>Create topic</h4>
-                <div>bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic ping</div>
-                <div>bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic pong</div>
-            </div></p>
-            <p>
+    </div>
+
+            <div>
+                <h3>Start Server:</h3>
+                <p>> bin/kafka-server-start.sh config/server.properties</p>
+            </div><div>
+
+                <h3>Create topic:</h3>
+                <p>> bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic ping</p>
+                <p>> bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic pong</p>
+            </div>
             <div><b>For detailed explanation checkout <a href="https://medium.com/@123avi/communicating-with-kafka-using-akka-actors-ce4af02482c6">this post</a></b> </div>
             </p>
-
-        </div>
-    </div>
 
 </body>
 </html>
