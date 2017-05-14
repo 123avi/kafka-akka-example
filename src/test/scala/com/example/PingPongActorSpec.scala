@@ -1,6 +1,6 @@
 package com.example
 
-import akka.actor.ActorSystem
+import akka.actor.{ActorSystem, Terminated}
 import akka.testkit.{ImplicitSender, TestKit, TestProbe}
 import cakesolutions.kafka.testkit.KafkaServer
 import cakesolutions.kafka.{KafkaProducer, KafkaProducerRecord}
@@ -68,9 +68,7 @@ class PingPongActorSpec(_system: ActorSystem) extends TestKit(_system) with Impl
       tester.watch(pingActor)
       tester.watch(pongActor)
       pongActor ! PongActor.Start
-      tester.expectTerminated(pongActor, 10 seconds)
-      tester.expectTerminated(pingActor, 10 seconds)
-
+      tester.expectMsgAllOf(10 seconds, Terminated(pongActor)(true, true), Terminated(pingActor)(true, true))
     }
   }
 
